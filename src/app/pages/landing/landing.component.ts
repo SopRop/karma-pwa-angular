@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
+  user = {
+    nom: 'Sophie',
+    karma: 1000,
+  };
+
   constructor() { }
 
   ngOnInit() {

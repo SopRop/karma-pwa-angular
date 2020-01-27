@@ -20,9 +20,9 @@ export class NavComponent implements OnInit {
       slug: 'home'
     },
     {
-      name: 'History',
-      url: '/',
-      slug: 'history'
+      name: 'Entries',
+      url: '/entries',
+      slug: 'entries'
     },
     {
       name: 'Profile',
