@@ -1,0 +1,8 @@
+<nav class="navbar navbar-light bg-light"
+    [ngClass]="isPortrait ? 'fixed-bottom' : 'sticky-top'">
+  <ng-container *ngFor="let menu of menus">
+    <a class="navbar-brand" href="{{ menu.url }}">
+      {{ menu.name }}
+    </a>
+  </ng-container>
+</nav>

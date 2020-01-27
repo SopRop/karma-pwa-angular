@@ -1,12 +1,4 @@
-@import "shared/styles/_core";
+@import "shared/styles/_base";
 @import "shared/styles/_colors";
 @import "shared/styles/_fonts";
-
-// html, body {
-//     height: 100%;
-// }
-
-// body {
-//     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
-//     background-color: grey;
-// }
+@import "shared/styles/_spacing";

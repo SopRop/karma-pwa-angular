@@ -8,8 +8,9 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PagesModule } from './pages/pages.module';
+import { CoreModule } from './core/core.module';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ScreenService } from './services/screen.service';
 
 @NgModule({
   declarations: [
@@ -21,9 +22,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
     PagesModule,
-    FontAwesomeModule
+    CoreModule
   ],
-  providers: [],
+  providers: [ScreenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
