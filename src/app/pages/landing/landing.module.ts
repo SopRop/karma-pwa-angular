@@ -7,7 +7,9 @@ import { LandingComponent } from './landing.component';
 import { NewEntryModule } from 'src/app/core/new-entry/new-entry.module';
 
 @NgModule({
-  declarations: [LandingComponent],
+  declarations: [
+    LandingComponent
+  ],
   imports: [
     CommonModule,
     NewEntryModule,

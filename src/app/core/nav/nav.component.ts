@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import Menu from '../../interfaces/menu';
 
-import { ScreenService } from '../../services/screen.service';
+import { ScreenService } from '../../services/screen/screen.service';
 
 @Component({
   selector: 'app-nav',

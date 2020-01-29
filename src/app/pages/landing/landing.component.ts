@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+import { UserService } from '../../services/user/user.service';
+import { User } from '../../services/user/user';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -7,14 +13,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  user = {
-    nom: 'Sophie',
-    karma: 1000,
-  };
+  users: Observable<User[]>;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.users = this.userService.getUsersList().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as User;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+
+    console.log('this.users :', this.users);
   }
 
+  addUser(test) {
+    test = 'wesh';
+    this.userService.addUser(test);
+  }
 }
