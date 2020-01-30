@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-// Import all modules
+// Import all pages modules
 import { LandingModule } from './landing/landing.module';
 import { ProfileModule } from './profile/profile.module';
 import { ListEntriesModule } from './list-entries/list-entries.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [],
@@ -12,7 +13,8 @@ import { ListEntriesModule } from './list-entries/list-entries.module';
     CommonModule,
     LandingModule,
     ProfileModule,
-    ListEntriesModule
+    ListEntriesModule,
+    AuthModule
   ],
   exports: []
 })

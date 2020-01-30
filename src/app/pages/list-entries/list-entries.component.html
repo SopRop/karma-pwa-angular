@@ -3,3 +3,9 @@
 <router-outlet></router-outlet>
 
 <app-old-entry></app-old-entry>
+
+
+<div *ngFor="let entry of entries | async">
+  <p>{{ entry.description }}</p>
+  <p>{{ entry.date | date: 'dd/MM/yyyy'}}</p>
+</div>

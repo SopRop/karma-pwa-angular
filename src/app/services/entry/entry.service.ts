@@ -10,7 +10,15 @@ export class EntryService {
 
   constructor(private firestore: AngularFirestore) { }
 
-  addEntry(entry: Entry) {
-    this.firestore.collection('entry').add({ entry });
+  getEntries() {
+    return this.firestore.collection('entry').snapshotChanges();
   }
+
+  addEntry(entry: Entry) {
+    console.log('entry :', entry);
+    // Pour avoir un custom ID
+    // this.firestore.collection('entry').doc('ID_CHOUETTE').set(Object.assign({}, entry));
+    this.firestore.collection('entry').add(Object.assign({}, entry));
+  }
+
 }

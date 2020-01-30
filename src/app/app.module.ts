@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
@@ -15,7 +16,7 @@ import { PagesModule } from './pages/pages.module';
 import { CoreModule } from './core/core.module';
 
 import { ScreenService } from './services/screen/screen.service';
-import { UserService } from './services/user/user.service';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UserService } from './services/user/user.service';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase, 'karma'),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
     PagesModule,
@@ -34,7 +36,7 @@ import { UserService } from './services/user/user.service';
   ],
   providers: [
     ScreenService,
-    UserService
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AuthService {
 
   constructor(private firestore: AngularFirestore) { }
 
