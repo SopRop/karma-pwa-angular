@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../services/auth/user';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+// import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing',
@@ -19,19 +19,15 @@ export class LandingComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.users = this.authService.getUsersList().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as User;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    );
+    // this.users = this.authService.getUsersList().pipe(
+    //   map(actions => actions.map(a => {
+    //     const data = a.payload.doc.data() as User;
+    //     const id = a.payload.doc.id;
+    //     return { id, ...data };
+    //   }))
+    // );
 
-    setTimeout(() => {
-      console.log('this.users :', this.users);
-    }, 2000);
-
-    this.users.subscribe(v => console.log('value :', v));
+    // this.users.subscribe(v => console.log('value :', v));
   }
 
 }

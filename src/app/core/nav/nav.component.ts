@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import Menu from '../../interfaces/menu';
 
 import { ScreenService } from '../../services/screen/screen.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -31,10 +33,17 @@ export class NavComponent implements OnInit {
     }
   ];
 
-  constructor(private screenService: ScreenService) {}
+  constructor(private screenService: ScreenService,
+              private authService: AuthService,
+              private router: Router) {}
 
   ngOnInit() {
     this.isPortrait = this.screenService.isPortrait;
+  }
+
+  onSignOut() {
+    this.authService.signOut();
+    this.router.navigate(['sign-in']);
   }
 
 }
