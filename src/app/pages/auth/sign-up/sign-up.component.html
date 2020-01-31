@@ -6,6 +6,8 @@
     <div class="authBlock">
       <h3>Sign Up</h3>
 
+      <p *ngIf="error">{{ errorMsg }}</p>
+
       <div class="formGroup">
         <input type="email" class="formControl" placeholder="Email Address" #userEmail required>
       </div>
@@ -15,7 +17,7 @@
       </div>
 
       <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">
+        <input type="button" class="btn btnPrimary" value="Sign Up" (click)="onSignUp(userEmail.value, userPwd.value)">
       </div>
 
       <div class="formGroup">

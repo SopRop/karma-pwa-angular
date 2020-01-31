@@ -41,9 +41,4 @@ export class NavComponent implements OnInit {
     this.isPortrait = this.screenService.isPortrait;
   }
 
-  onSignOut() {
-    this.authService.signOut();
-    this.router.navigate(['sign-in']);
-  }
-
 }

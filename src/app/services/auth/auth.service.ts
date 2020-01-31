@@ -46,22 +46,27 @@ export class AuthService {
     return this.authFire.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['entries']);
+          this.router.navigate(['/']);
         });
         this.setUserData(result.user);
-      }).catch((error) => {
-        window.alert(error.message);
       });
+      // .catch((error) => {
+      //   window.alert(error.message);
+      // });
   }
 
   // sign up with email and pwd
   signUp(email, password) {
     return this.authFire.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
+        this.ngZone.run(() => {
+          this.router.navigate(['/']);
+        });
         this.setUserData(result.user);
-      }).catch((error) => {
-        window.alert(error.message);
       });
+      // .catch((error) => {
+      //   window.alert(error.message);
+      // });
   }
 
   // reset pwd
@@ -74,7 +79,7 @@ export class AuthService {
       });
   }
 
-  // is user logged in
+  // is user logged in?
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null) ? true : false;
@@ -85,13 +90,18 @@ export class AuthService {
     return this.authLogin(new auth.GoogleAuthProvider());
   }
 
+  // sign in with facebook
+  facebookAuth() {
+    return this.authLogin(new auth.FacebookAuthProvider());
+  }
+
   // auth logic to run auth providers
   authLogin(provider) {
     return this.authFire.auth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['entries']);
-        })
+          this.router.navigate(['/']);
+        });
         this.setUserData(result.user);
       }).catch((error) => {
         window.alert(error);

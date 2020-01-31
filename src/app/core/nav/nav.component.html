@@ -5,7 +5,7 @@
       {{ menu.name }}
     </a>
   </ng-container>
-  <button class="navbar-brand" (click)="onSignOut()" routerLink="/sign-in">
+  <button class="navbar-brand" (click)="authService.signOut()" routerLink="/sign-in">
     logout
   </button>
 </nav>

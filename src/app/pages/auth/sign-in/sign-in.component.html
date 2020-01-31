@@ -5,6 +5,9 @@
 
     <div class="authBlock">
       <h3>Sign In</h3>
+
+      <p *ngIf="errorMsg">{{ errorMsg }}</p>
+
       <div class="formGroup">
         <input type="text" class="formControl" placeholder="Username" #userName required>
       </div>
@@ -15,7 +18,7 @@
 
       <!-- Calling SignIn Api from AuthService -->
       <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.signIn(userName.value, userPassword.value)">
+        <input type="button" class="btn btnPrimary" value="Log in" (click)="onSignIn(userName.value, userPassword.value)">
       </div>
 
       <div class="formGroup">
@@ -36,7 +39,7 @@
     </div>
 
     <div class="redirectToLogin">
-      <span>Don't have an account?<button class="redirect" routerLink="/register-user"> Sign Up</button></span>
+      <span>Don't have an account?<button class="redirect" routerLink="/register-user">Sign Up</button></span>
     </div>
 
   </div>
