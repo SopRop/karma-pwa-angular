@@ -42,7 +42,7 @@ export class AuthService {
   // }
 
   // sign in with email and pwd
-  signIn(email, password) {
+  async signIn(email, password) {
     return this.authFire.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
@@ -56,7 +56,7 @@ export class AuthService {
   }
 
   // sign up with email and pwd
-  signUp(email, password) {
+  async signUp(email, password) {
     return this.authFire.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
@@ -70,7 +70,7 @@ export class AuthService {
   }
 
   // reset pwd
-  forgotPassword(passwordResetEmail) {
+  async forgotPassword(passwordResetEmail) {
     return this.authFire.auth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
         window.alert('Password reset email sent');
@@ -96,7 +96,7 @@ export class AuthService {
   }
 
   // auth logic to run auth providers
-  authLogin(provider) {
+  async authLogin(provider) {
     return this.authFire.auth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
@@ -124,7 +124,7 @@ export class AuthService {
     });
   }
 
-  signOut() {
+  async signOut() {
     return this.authFire.auth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);

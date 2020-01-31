@@ -4,5 +4,4 @@ export class Entry {
   title: string;
   description?: string;
   date: string;
-  idUser: string;
 }

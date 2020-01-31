@@ -16,13 +16,11 @@ export class SignInComponent implements OnInit {
   }
 
   onSignIn(email: string, password: string) {
-    console.log('onSign :');
 
     this.errorMsg = '';
 
     this.authService.signIn(email, password)
       .catch((error) => {
-        console.log('error :', error);
         switch (error.code) {
           case 'auth/invalid-email':
             this.errorMsg = `Please enter a valid address.`;

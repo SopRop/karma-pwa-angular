@@ -1,3 +1,27 @@
 <p>new-entry works!</p>
 
-<button type="button" class="btn btn-primary" (click)="onAddEntry()">Save</button>
+<div class="displayTable">
+  <div class="displayTableCell">
+
+    <div class="">
+      <h3>Add entry</h3>
+
+      <p *ngIf="errorMsg">{{ errorMsg }}</p>
+
+      <div class="formGroup">
+        <input type="text" class="formControl" placeholder="title" #userName required>
+      </div>
+
+      <div class="formGroup">
+        <input type="" class="formControl" placeholder="description" #userPassword required>
+      </div>
+
+      <!-- Calling SignIn Api from AuthService -->
+      <div class="formGroup">
+        <input type="button" class="btn btnPrimary" value="Save entry" (click)="onAddEntry()">
+      </div>
+
+    </div>
+
+  </div>
+</div>

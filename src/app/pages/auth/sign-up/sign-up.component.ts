@@ -15,8 +15,7 @@ export class SignUpComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSignUp(email, password) {
-    console.log('onSign :');
+  onSignUp(email: string, password: string) {
 
     this.errorMsg = '';
 
