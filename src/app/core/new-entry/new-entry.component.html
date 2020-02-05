@@ -1,27 +1,36 @@
 <p>new-entry works!</p>
 
-<div class="displayTable">
-  <div class="displayTableCell">
 
-    <div class="">
-      <h3>Add entry</h3>
+<!-- <div class="">
+  <h3>Add entry</h3>
 
-      <p *ngIf="errorMsg">{{ errorMsg }}</p>
+  <p *ngIf="errorMsg">{{ errorMsg }}</p>
 
-      <div class="formGroup">
-        <input type="text" class="formControl" placeholder="title" #userName required>
-      </div>
-
-      <div class="formGroup">
-        <input type="" class="formControl" placeholder="description" #userPassword required>
-      </div>
-
-      <!-- Calling SignIn Api from AuthService -->
-      <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Save entry" (click)="onAddEntry()">
-      </div>
-
-    </div>
-
+  <div class="">
+    <input type="text" class="" placeholder="title" required>
   </div>
-</div>
+
+  <div class="">
+    <input type="text" class="formControl" placeholder="description">
+  </div>
+
+  <div class="">
+    <input type="button" class="" value="Save entry" (click)="onAddEntry()">
+  </div>
+</div> -->
+
+<form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+  
+  <label>
+    Title:
+    <input type="text" placeholder="title"  formControlName="title" required>
+  </label>
+
+  <label>
+    Description:
+    <input type="text" placeholder="description" formControlName="description">
+  </label>
+
+  <button type="submit">Add new entry</button>
+
+</form>

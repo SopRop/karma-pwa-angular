@@ -6,6 +6,9 @@
 
 
 <div *ngFor="let entry of entries | async">
+  <p>-----debut-----</p>
+  <p>{{ entry.title }}</p>
   <p>{{ entry.description }}</p>
   <p>{{ entry.date | date: 'dd/MM/yyyy'}}</p>
+  <p>-----fin-----</p>
 </div>
