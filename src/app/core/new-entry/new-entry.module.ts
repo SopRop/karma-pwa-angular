@@ -3,6 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { MatInputModule,
+          MatFormFieldModule,
+          MatDatepickerModule,
+          MatNativeDateModule,
+          MatIconModule
+        } from '@angular/material';
+
 import { NewEntryComponent } from './new-entry.component';
 
 @NgModule({
@@ -11,7 +18,12 @@ import { NewEntryComponent } from './new-entry.component';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule
   ]
 })
 export class NewEntryModule { }

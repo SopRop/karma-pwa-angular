@@ -10,7 +10,6 @@ import * as moment from 'moment-timezone';
 import 'moment-timezone';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-entry',
@@ -22,6 +21,7 @@ export class NewEntryComponent implements OnInit {
 
   entries: Observable<Entry[]>;
   entryForm: FormGroup;
+  current_date: string;
 
   constructor(private router: Router,
               private entryService: EntryService,
@@ -29,35 +29,22 @@ export class NewEntryComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-/*     this.getEntries();
-    console.log('this.entries :', this.entries); */
-
     this.buildEntryForm();
+    this.current_date = moment().tz('Europe/Paris').format();
   }
 
   buildEntryForm() {
     this.entryForm = this.formBuilder.group({
+      date: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required]
     });
   }
 
-/*   getEntries() {
-    this.entries = this.entryService.getEntries()
-      .pipe(map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Entry;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    );
-  } */
-
-  onSubmit() {
+  onAddEntry() {
     console.log('entryForm', this.entryForm.value);
 
     this.entry = this.entryForm.value;
-
-    this.entry.date = moment().tz('Europe/Paris').format();
 
     this.entryService.addEntry(this.entry);
     this.router.navigate(['/entries']);

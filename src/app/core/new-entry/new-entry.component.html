@@ -1,35 +1,22 @@
 <p>new-entry works!</p>
 
+<form [formGroup]="entryForm" (ngSubmit)="onAddEntry()">
 
-<!-- <div class="">
-  <h3>Add entry</h3>
-
-  <p *ngIf="errorMsg">{{ errorMsg }}</p>
-
-  <div class="">
-    <input type="text" class="" placeholder="title" required>
-  </div>
-
-  <div class="">
-    <input type="text" class="formControl" placeholder="description">
-  </div>
-
-  <div class="">
-    <input type="button" class="" value="Save entry" (click)="onAddEntry()">
-  </div>
-</div> -->
-
-<form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input matInput [matDatepicker]="date_picker" placeholder="Date" formControlName="date" [value]="current_date">
+    <mat-datepicker-toggle matSuffix [for]="date_picker"></mat-datepicker-toggle>
+    <mat-datepicker #date_picker touchUi></mat-datepicker>
+  </mat-form-field>
   
-  <label>
-    Title:
-    <input type="text" placeholder="title"  formControlName="title" required>
-  </label>
+  <mat-form-field floatLabel="always">
+    <input matInput #title maxlength="25" placeholder="Title" formControlName="title" required>
+    <mat-hint align="end">{{title.value?.length || 0}}/25</mat-hint>
+  </mat-form-field>
 
-  <label>
-    Description:
-    <input type="text" placeholder="description" formControlName="description">
-  </label>
+  <mat-form-field floatLabel="always">
+    <input matInput #description maxlength="250" placeholder="Description" formControlName="description">
+    <mat-hint align="end">{{description.value?.length || 0}}/250</mat-hint>
+  </mat-form-field>
 
   <button type="submit">Add new entry</button>
 
