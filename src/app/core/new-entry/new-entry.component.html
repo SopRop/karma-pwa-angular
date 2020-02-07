@@ -1,23 +1,37 @@
 <p>new-entry works!</p>
 
-<form [formGroup]="entryForm" (ngSubmit)="onAddEntry()">
 
-  <mat-form-field>
-    <input matInput [matDatepicker]="date_picker" placeholder="Date" formControlName="date" [value]="current_date">
-    <mat-datepicker-toggle matSuffix [for]="date_picker"></mat-datepicker-toggle>
-    <mat-datepicker #date_picker touchUi></mat-datepicker>
-  </mat-form-field>
-  
-  <mat-form-field floatLabel="always">
-    <input matInput #title maxlength="25" placeholder="Title" formControlName="title" required>
-    <mat-hint align="end">{{title.value?.length || 0}}/25</mat-hint>
-  </mat-form-field>
+<form class="container" [formGroup]="entryForm" (ngSubmit)="onAddEntry()">
 
-  <mat-form-field floatLabel="always">
-    <input matInput #description maxlength="250" placeholder="Description" formControlName="description">
-    <mat-hint align="end">{{description.value?.length || 0}}/250</mat-hint>
-  </mat-form-field>
+  <div class="">
+    <div class="row justify-content-center">
+      <mat-form-field class="col-3">
+        <input matInput [matDatepicker]="date_picker" placeholder="Date" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="date_picker"></mat-datepicker-toggle>
+        <mat-datepicker #date_picker touchUi></mat-datepicker>
+      </mat-form-field>
+    </div>
 
-  <button type="submit">Add new entry</button>
+    <div class="row justify-content-center">
+      <mat-form-field class="col-6" floatLabel="always">
+        <input matInput #title maxlength="25" placeholder="Title" formControlName="title" required>
+        <mat-hint align="end">{{title.value?.length || 0}}/25</mat-hint>
+      </mat-form-field>
+    </div>
+    
+    <div class="row justify-content-center">
+      <mat-form-field class="col-6" floatLabel="always">
+        <textarea matInput #description maxlength="250" placeholder="Description" formControlName="description"></textarea>
+        <mat-hint align="end">{{description.value?.length || 0}}/250</mat-hint>
+      </mat-form-field>
+    </div>
+      
+    <div class="row justify-content-center">
+      <button class="col-3" type="submit" mat-raised-button color="primary">Add new entry</button>
+    </div>
+  </div>
 
+
+
+    
 </form>

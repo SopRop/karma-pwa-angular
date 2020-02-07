@@ -31,6 +31,7 @@ export class NewEntryComponent implements OnInit {
   ngOnInit() {
     this.buildEntryForm();
     this.current_date = moment().tz('Europe/Paris').format();
+    this.entryForm.get('date').setValue(this.current_date);
   }
 
   buildEntryForm() {
