@@ -25,7 +25,7 @@ import { NewEntryComponent } from './new-entry.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    MatButtonModule 
+    MatButtonModule
   ]
 })
 export class NewEntryModule { }

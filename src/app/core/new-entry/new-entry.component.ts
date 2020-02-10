@@ -21,7 +21,7 @@ export class NewEntryComponent implements OnInit {
 
   entries: Observable<Entry[]>;
   entryForm: FormGroup;
-  current_date: string;
+  currentDate: string;
 
   constructor(private router: Router,
               private entryService: EntryService,
@@ -30,8 +30,8 @@ export class NewEntryComponent implements OnInit {
 
   ngOnInit() {
     this.buildEntryForm();
-    this.current_date = moment().tz('Europe/Paris').format();
-    this.entryForm.get('date').setValue(this.current_date);
+    this.currentDate = moment().tz('Europe/Paris').format();
+    this.entryForm.get('date').setValue(this.currentDate);
   }
 
   buildEntryForm() {
