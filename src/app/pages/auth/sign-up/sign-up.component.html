@@ -1,31 +1,32 @@
 <h2 class="row justify-content-center">sign up</h2>
 
-<form [formGroup]="signUpForm" class="container m-b-20" (ngSubmit)="onSignUp()">
+<form [formGroup]="signUpForm" class="m-b-20" (ngSubmit)="onSignUp()">
 
-  <p class="row justify-content-center" *ngIf="errorMsg">{{ errorMsg }}</p>
+  <p class="row justify-content-center text-error" *ngIf="errorMsg">{{ errorMsg }}</p>
 
   <div class="">
     <div class="row justify-content-center">
-      <mat-form-field class="col-6">
+      <mat-form-field class="col-10 col-md-3">
         <input matInput #email placeholder="e-mail" formControlName="email" required>
       </mat-form-field>
     </div>
 
     <div class="row justify-content-center m-b-20">
-      <mat-form-field class="col-6" hintLabel="Min 6 characters">
+      <mat-form-field class="col-10 col-md-3">
         <input type="password" matInput #password placeholder="password" formControlName="password" required>
+        <mat-hint align="end">Min 6 characters</mat-hint>
       </mat-form-field>
     </div>
   </div>
 
   <div class="row justify-content-center">
-    <button class="col-3" type="submit" mat-raised-button color="primary" [disabled]="!signUpForm.valid">Sign Up</button>
+    <button class="" type="submit" mat-raised-button color="primary" [disabled]="!signUpForm.valid">Sign Up</button>
   </div>
 
 </form>
 
 <div class="row justify-content-center">
-  <button class="col-3"
+  <button class=""
           mat-raised-button color="secondary"
           (click)="authService.googleAuth()">
     Continue with Google
@@ -34,7 +35,7 @@
 
   <p class="row justify-content-center">Already have an account?</p>
   <div class="row justify-content-center">
-    <button class="col-2"
+    <button class=""
               mat-raised-button color="secondary"
               routerLink="/sign-in">
       Log In
