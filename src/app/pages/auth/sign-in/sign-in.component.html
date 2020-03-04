@@ -1,46 +1,42 @@
-<p>sign-in works!</p>
+<h2 class="row justify-content-center">sign in</h2>
 
-<div class="">
+<form [formGroup]="signInForm" class="m-b-20" (ngSubmit)="onSignIn()">
+
+  <p class="row justify-content-center text-error" *ngIf="errorMsg">{{ errorMsg }}</p>
+
   <div class="">
-
-    <div class="authBlock">
-      <h3>Sign In</h3>
-
-      <p *ngIf="errorMsg">{{ errorMsg }}</p>
-
-      <div class="formGroup">
-        <input type="text" class="formControl" placeholder="Username" #userName required>
-      </div>
-
-      <div class="formGroup">
-        <input type="password" class="formControl" placeholder="Password" #userPassword required>
-      </div>
-
-      <!-- Calling SignIn Api from AuthService -->
-      <div class="formGroup">
-        <input type="button" class="" value="Log in" (click)="onSignIn(userName.value, userPassword.value)">
-      </div>
-
-      <div class="formGroup">
-        <span class=""><span class="">Or</span></span>
-      </div>
-
-      <!-- Calling GoogleAuth Api from AuthService -->
-      <div class="formGroup">
-        <button type="button" class="" (click)="authService.googleAuth()">
-          <i class=""></i>
-          Log in with Google
-        </button>
-      </div>
-
-      <div class="forgotPassword">
-        <span routerLink="/forgot-password">Forgot Password?</span>
-      </div>
+    <div class="row justify-content-center">
+      <mat-form-field class="col-10 col-md-3 text-center">
+        <input matInput #email placeholder="e-mail" formControlName="email" required>
+      </mat-form-field>
     </div>
 
-    <div class="">
-      <span>Don't have an account?<button class="" routerLink="/register-user">Sign Up</button></span>
+    <div class="row justify-content-center m-b-20">
+      <mat-form-field class="col-10 col-md-3">
+        <input type="password" matInput #password placeholder="password" formControlName="password" required>
+      </mat-form-field>
     </div>
-
   </div>
+
+  <div class="row justify-content-center">
+    <button class="" type="submit" mat-raised-button color="primary" [disabled]="!signInForm.valid">Sign In</button>
+  </div>
+
+</form>
+
+<div class="row justify-content-center">
+  <button class=""
+          mat-raised-button color="secondary"
+          (click)="authService.googleAuth()">
+    Continue with Google
+  </button>
 </div>
+
+  <p class="row justify-content-center">Don't have an account?</p>
+  <div class="row justify-content-center">
+    <button class=""
+              mat-raised-button color="secondary"
+              routerLink="/sign-up">
+      Sign up
+    </button>
+  </div>

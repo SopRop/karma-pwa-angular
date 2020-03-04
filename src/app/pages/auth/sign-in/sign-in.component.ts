@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -8,14 +10,32 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class SignInComponent implements OnInit {
 
+  signInForm: FormGroup;
   errorMsg: string;
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.buildSignInForm();
   }
 
-  onSignIn(email: string, password: string) {
+  buildSignInForm() {
+    this.signInForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
+  test() {
+    console.log('test');
+    // this.redirectTo('/register-user');
+  }
+
+  onSignIn() {
+
+    const email = this.signInForm.value.email;
+    const password = this.signInForm.value.password;
 
     this.errorMsg = '';
 
@@ -35,7 +55,7 @@ export class SignInComponent implements OnInit {
             this.errorMsg = `Unexpected error. Please come back later.`;
             break;
           default:
-            console.log('Well, fuck');
+            console.log('error :', error);
         }
     });
   }

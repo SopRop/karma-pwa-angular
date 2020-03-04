@@ -11,7 +11,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SignUpComponent implements OnInit {
 
   signUpForm: FormGroup;
-
   errorMsg: string;
 
   constructor(public authService: AuthService,

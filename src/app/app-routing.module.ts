@@ -25,11 +25,11 @@ const routes: Routes = [
       { path: '', component: LandingComponent, pathMatch: 'full', canActivate: [AuthGuard] },
       // { path: '', component: LandingComponent },
       { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard] },
-      { path: 'register-user', component: SignUpComponent, canActivate: [SecureInnerPagesGuard] },
+      { path: 'sign-up', component: SignUpComponent, canActivate: [SecureInnerPagesGuard] },
+      { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
       { path: 'entries', component: ListEntriesComponent, canActivate: [AuthGuard] },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
       { path: 'new-entry/new', component: NewEntryComponent, canActivate: [AuthGuard] },
-      { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [AuthGuard] },
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   }
