@@ -45,6 +45,9 @@ export class SignInComponent implements OnInit {
           case 'auth/invalid-email':
             this.errorMsg = `Please enter a valid address.`;
             break;
+          case 'auth/user-not-found':
+            this.errorMsg = `There is no user corresponding to the given email or password.`;
+            break;
           case 'auth/wrong-password':
             this.errorMsg = `There is no user corresponding to the given email or password.`;
             break;

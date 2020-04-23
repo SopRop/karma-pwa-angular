@@ -74,9 +74,10 @@ export class AuthService {
     return this.authFire.auth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
         window.alert('Password reset email sent');
-      }).catch((error) => {
-        window.alert(error);
       });
+      // .catch((error) => {
+      //   window.alert(error);
+      // });
   }
 
   // is user logged in?

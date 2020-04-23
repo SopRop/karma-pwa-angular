@@ -13,8 +13,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-list-entries',
   templateUrl: './list-entries.component.html',
-  styleUrls: ['./list-entries.component.scss'],
-  providers: [Entry]
+  styleUrls: ['./list-entries.component.scss']
 })
 export class ListEntriesComponent implements OnInit {
 

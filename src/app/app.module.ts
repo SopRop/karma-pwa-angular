@@ -18,6 +18,8 @@ import { CoreModule } from './core/core.module';
 import { ScreenService } from './services/screen/screen.service';
 import { AuthService } from './services/auth/auth.service';
 
+import { Entry } from './services/entry/entry';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -36,7 +38,8 @@ import { AuthService } from './services/auth/auth.service';
   ],
   providers: [
     ScreenService,
-    AuthService
+    AuthService,
+    Entry
   ],
   bootstrap: [AppComponent]
 })
