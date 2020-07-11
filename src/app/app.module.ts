@@ -17,6 +17,7 @@ import { CoreModule } from './core/core.module';
 
 import { ScreenService } from './services/screen/screen.service';
 import { AuthService } from './services/auth/auth.service';
+import { DataSharingService } from './services/data-sharing/data-sharing.service';
 
 import { Entry } from './services/entry/entry';
 
@@ -39,6 +40,7 @@ import { Entry } from './services/entry/entry';
   providers: [
     ScreenService,
     AuthService,
+    DataSharingService,
     Entry
   ],
   bootstrap: [AppComponent]

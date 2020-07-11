@@ -27,11 +27,6 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  test() {
-    console.log('test');
-    // this.redirectTo('/register-user');
-  }
-
   onSignIn() {
 
     const email = this.signInForm.value.email;

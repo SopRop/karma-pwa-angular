@@ -34,7 +34,7 @@ export class NavComponent implements OnInit {
   ];
 
   constructor(private screenService: ScreenService,
-              private authService: AuthService,
+              public authService: AuthService,
               private router: Router) {}
 
   ngOnInit() {

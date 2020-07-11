@@ -1,3 +1,4 @@
+import { DataSharingService } from 'src/app/services/data-sharing/data-sharing.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  isUserLoggedIn: boolean;
+
+  constructor(private dataSharingService: DataSharingService) {
+    this.dataSharingService.isUserLoggedIn.subscribe(value => {
+      this.isUserLoggedIn = value;
+    });
+  }
 
   ngOnInit() {
   }
+
 
 }
