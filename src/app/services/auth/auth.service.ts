@@ -1,3 +1,4 @@
+import { DataSharingService } from './../data-sharing/data-sharing.service';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
@@ -14,11 +15,13 @@ export class AuthService {
 
   // Save logged-in data user
   userData: any;
+  isUserLoggedIn: boolean;
 
   constructor(public firestore: AngularFirestore,
               public authFire: AngularFireAuth,
               public router: Router,
-              public ngZone: NgZone ) {
+              public ngZone: NgZone,
+              public dataSharingService: DataSharingService) {
 
     // Save user data in localstorage when log in OR set it up to null when log out
     this.authFire.authState.subscribe(user => {
@@ -31,6 +34,10 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user'));
       }
     });
+
+    this.dataSharingService.isUserLoggedIn.subscribe(value => {
+      this.isUserLoggedIn = value;
+    });
   }
 
   // getUsersList() {
@@ -41,11 +48,15 @@ export class AuthService {
   //   this.firestore.collection('user').add({ username });
   // }
 
+  userStatusForGuard() {
+    return this.isUserLoggedIn;
+  }
   // sign in with email and pwd
   async signIn(email, password) {
     return this.authFire.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
+          this.dataSharingService.isUserLoggedIn.next(true);
           this.router.navigate(['/']);
         });
         this.setUserData(result.user);
@@ -80,12 +91,6 @@ export class AuthService {
       // });
   }
 
-  // is user logged in?
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null) ? true : false;
-  }
-
   // sign in with google
   googleAuth() {
     return this.authLogin(new auth.GoogleAuthProvider());
@@ -101,6 +106,7 @@ export class AuthService {
     return this.authFire.auth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
+          this.dataSharingService.isUserLoggedIn.next(true);
           this.router.navigate(['/']);
         });
         this.setUserData(result.user);
@@ -127,6 +133,7 @@ export class AuthService {
 
   async signOut() {
     return this.authFire.auth.signOut().then(() => {
+      this.dataSharingService.isUserLoggedIn.next(false);
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);
     });
