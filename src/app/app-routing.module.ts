@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+// Admin Components
+import { QuestionComponent } from './admin/question/question.component';
+
 // Core components
 import { LayoutComponent } from './core/layout/layout.component';
 import { NewEntryComponent } from './core/new-entry/new-entry.component';
@@ -24,9 +27,10 @@ const routes: Routes = [
     children: [
       { path: '', component: LandingComponent, pathMatch: 'full', canActivate: [AuthGuard] },
       // { path: '', component: LandingComponent },
-      { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard] },
-      { path: 'sign-up', component: SignUpComponent, canActivate: [SecureInnerPagesGuard] },
-      { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
+      { path: 'sign-in', component: SignInComponent, canActivate: [AuthGuard] },
+      { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard] },
+      { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [AuthGuard] },
+      { path: 'questions', component: QuestionComponent, canActivate: [AuthGuard] },
       { path: 'entries', component: ListEntriesComponent, canActivate: [AuthGuard] },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
       { path: 'new-entry/new', component: NewEntryComponent, canActivate: [AuthGuard] },

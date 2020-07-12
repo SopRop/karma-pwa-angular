@@ -12,14 +12,15 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
+import { AdminModule } from './admin/admin.module';
 import { PagesModule } from './pages/pages.module';
 import { CoreModule } from './core/core.module';
 
 import { ScreenService } from './services/screen/screen.service';
 import { AuthService } from './services/auth/auth.service';
-import { DataSharingService } from './services/data-sharing/data-sharing.service';
 
 import { Entry } from './services/entry/entry';
+import { Question } from './services/question/question';
 
 @NgModule({
   declarations: [
@@ -35,13 +36,14 @@ import { Entry } from './services/entry/entry';
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
     PagesModule,
-    CoreModule
+    CoreModule,
+    AdminModule
   ],
   providers: [
     ScreenService,
     AuthService,
-    DataSharingService,
-    Entry
+    Entry,
+    Question
   ],
   bootstrap: [AppComponent]
 })

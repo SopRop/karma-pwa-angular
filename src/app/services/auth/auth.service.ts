@@ -1,9 +1,10 @@
-import { DataSharingService } from './../data-sharing/data-sharing.service';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { User } from './user';
 import { auth } from 'firebase';
@@ -15,13 +16,11 @@ export class AuthService {
 
   // Save logged-in data user
   userData: any;
-  isUserLoggedIn: boolean;
 
   constructor(public firestore: AngularFirestore,
               public authFire: AngularFireAuth,
               public router: Router,
-              public ngZone: NgZone,
-              public dataSharingService: DataSharingService) {
+              public ngZone: NgZone) {
 
     // Save user data in localstorage when log in OR set it up to null when log out
     this.authFire.authState.subscribe(user => {
@@ -30,14 +29,23 @@ export class AuthService {
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user'));
       } else {
-        localStorage.setItem('user', null);
+        localStorage.removeItem('user');
         JSON.parse(localStorage.getItem('user'));
       }
     });
+  }
 
-    this.dataSharingService.isUserLoggedIn.subscribe(value => {
-      this.isUserLoggedIn = value;
-    });
+  isLoggedIn(): Observable<boolean> {
+    return this.authFire.authState.pipe(map((authUser) =>  {
+      console.log('user', authUser);
+      if (authUser) {
+        console.log('true');
+        return true;
+      } else {
+        console.log('false');
+        return false;
+      }
+    }));
   }
 
   // getUsersList() {
@@ -48,15 +56,11 @@ export class AuthService {
   //   this.firestore.collection('user').add({ username });
   // }
 
-  userStatusForGuard() {
-    return this.isUserLoggedIn;
-  }
   // sign in with email and pwd
   async signIn(email, password) {
     return this.authFire.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.dataSharingService.isUserLoggedIn.next(true);
           this.router.navigate(['/']);
         });
         this.setUserData(result.user);
@@ -106,7 +110,6 @@ export class AuthService {
     return this.authFire.auth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.dataSharingService.isUserLoggedIn.next(true);
           this.router.navigate(['/']);
         });
         this.setUserData(result.user);
@@ -133,7 +136,6 @@ export class AuthService {
 
   async signOut() {
     return this.authFire.auth.signOut().then(() => {
-      this.dataSharingService.isUserLoggedIn.next(false);
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);
     });

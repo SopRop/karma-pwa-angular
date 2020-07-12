@@ -4,7 +4,8 @@ import Menu from '../../interfaces/menu';
 
 import { ScreenService } from '../../services/screen/screen.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
 
   isPortrait: boolean;
+  isLoggedIn: Observable<boolean>;
 
   menus: Menu[] = [
     {
@@ -34,8 +36,11 @@ export class NavComponent implements OnInit {
   ];
 
   constructor(private screenService: ScreenService,
-              public authService: AuthService,
-              private router: Router) {}
+              public authService: AuthService
+              ) {
+
+    this.isLoggedIn = this.authService.isLoggedIn();
+  }
 
   ngOnInit() {
     this.isPortrait = this.screenService.isPortrait;
