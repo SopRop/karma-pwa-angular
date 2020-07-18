@@ -27,13 +27,17 @@ const routes: Routes = [
     children: [
       { path: '', component: LandingComponent, pathMatch: 'full', canActivate: [AuthGuard] },
       // { path: '', component: LandingComponent },
-      { path: 'sign-in', component: SignInComponent, canActivate: [AuthGuard] },
-      { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard] },
-      { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [AuthGuard] },
+      // { path: 'sign-in', component: SignInComponent, canActivate: [AuthGuard] },
+      // { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard] },
+      // { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [AuthGuard] },
+      { path: 'sign-in', component: SignInComponent },
+      { path: 'sign-up', component: SignUpComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent},
       { path: 'questions', component: QuestionComponent, canActivate: [AuthGuard] },
       { path: 'entries', component: ListEntriesComponent, canActivate: [AuthGuard] },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
       { path: 'new-entry/new', component: NewEntryComponent, canActivate: [AuthGuard] },
+      { path: 'question', component: QuestionComponent, canActivate: [AuthGuard] },
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   }

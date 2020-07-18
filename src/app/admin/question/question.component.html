@@ -1,8 +1,43 @@
-<p>question works!</p>
+<form class="container text-center" [formGroup]="questionForm" (ngSubmit)="onAddQuestion()">
 
+  <div class="">
 
+    <div class="">
+      <mat-form-field class="col-md-6 col-10" appearance="legacy">
+        <mat-label>question</mat-label>
+        <input matInput #title maxlength="60" [formControl]="questionForm.get('title')" required>
+        <mat-hint align="end">{{title.value?.length || 0}}/60</mat-hint>
+      </mat-form-field>
+    </div>
 
-<div *ngFor="let question of questions | async">
+    <div class="">
+      <mat-form-field class="col-md-2 col-4" appearance="legacy">
+        <mat-label>yes points</mat-label>
+        <input matInput #yesPoints maxlength="60" [formControl]="questionForm.get('yesPoints')" required>
+        <mat-hint align="end">1 - 100</mat-hint>
+        <mat-error *ngIf="questionForm.get('yesPoints').hasError('pattern')">Only numbers between 1 and 100</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="">
+      <mat-form-field  class="col-md-2 col-4" appearance="legacy">
+        <mat-label>no points</mat-label>
+        <input matInput #noPoints maxlength="60" [formControl]="questionForm.get('noPoints')" required>
+        <span matPrefix>-</span>
+        <mat-hint align="end">1 - 100</mat-hint>
+        <mat-error *ngIf="questionForm.get('noPoints').hasError('pattern')">Only numbers between 1 and 100</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-4">
+      <button class="col-auto" type="submit" [disabled]="!questionForm.valid" mat-raised-button color="primary">Add question</button>
+    </div>
+
+  </div>
+
+</form>
+
+<div class="container text-center" *ngFor="let question of questions | async">
   <p>-----debut-----</p>
   <p>{{ question.title }}</p>
   <p>{{ question.yesPoints }}</p>

@@ -32,6 +32,11 @@ export class NavComponent implements OnInit {
       name: 'Profile',
       url: '/profile',
       slug: 'profile'
+    },
+    {
+      name: 'Question',
+      url: '/question',
+      slug: 'question'
     }
   ];
 

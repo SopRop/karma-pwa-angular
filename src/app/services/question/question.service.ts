@@ -14,7 +14,10 @@ export class QuestionService {
     return this.firestore.collection('question').snapshotChanges();
   }
 
-  addQuestion() {
-
+  addQuestion(question: Question) {
+    console.log('question :', question);
+    // Pour avoir un custom ID
+    // this.firestore.collection('entry').doc('ID_CHOUETTE').set(Object.assign({}, entry));
+    this.firestore.collection('question').add(Object.assign({}, question));
   }
 }
