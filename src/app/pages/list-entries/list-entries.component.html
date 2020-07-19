@@ -1,14 +1,30 @@
-<p>list-entries works!</p>
-
 <router-outlet></router-outlet>
 
-<app-old-entry></app-old-entry>
+<ng-container *ngIf="!isClicked">
+  <button type="button" class="btn btn-primary" routerLink="/new-entry">Add</button>
+
+  <div *ngFor="let entry of entries | async">
+    <div (click)="onSelectEntry(entry)">
+      <p>-----debut-----</p>
+      <p>{{ entry.title }}</p>
+      <p>{{ entry.description }}</p>
+      <p>{{ entry.date | date: 'dd/MM/yyyy'}}</p>
 
 
-<div *ngFor="let entry of entries | async">
-  <p>-----debut-----</p>
-  <p>{{ entry.title }}</p>
-  <p>{{ entry.description }}</p>
-  <p>{{ entry.date | date: 'dd/MM/yyyy'}}</p>
-  <p>-----fin-----</p>
-</div>
+      <p>-----fin-----</p>
+    </div>
+
+    <button class=""
+      mat-raised-button color="secondary"
+      (click)="onDelete(entry.id)">
+      delete
+    </button>
+  </div>
+
+</ng-container>
+
+<ng-container>
+  <app-old-entry *ngIf="isClicked">
+  </app-old-entry>
+</ng-container>
+

@@ -37,12 +37,12 @@ export class AuthService {
 
   isLoggedIn(): Observable<boolean> {
     return this.authFire.authState.pipe(map((authUser) =>  {
-      console.log('user', authUser);
+      // console.log('user', authUser);
       if (authUser) {
-        console.log('true');
+        // console.log('true');
         return true;
       } else {
-        console.log('false');
+        // console.log('false');
         return false;
       }
     }));

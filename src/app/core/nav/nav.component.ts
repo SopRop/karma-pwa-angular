@@ -34,9 +34,9 @@ export class NavComponent implements OnInit {
       slug: 'profile'
     },
     {
-      name: 'Question',
-      url: '/question',
-      slug: 'question'
+      name: 'Questions',
+      url: '/questions',
+      slug: 'questions'
     }
   ];
 

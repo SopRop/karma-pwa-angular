@@ -1,3 +1,4 @@
+import { OldEntryComponent } from './pages/list-entries/old-entry/old-entry.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -34,10 +35,12 @@ const routes: Routes = [
       { path: 'sign-up', component: SignUpComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent},
       { path: 'questions', component: QuestionComponent, canActivate: [AuthGuard] },
-      { path: 'entries', component: ListEntriesComponent, canActivate: [AuthGuard] },
+      { path: 'new-entry', component: NewEntryComponent, canActivate: [AuthGuard] },
+      { path: 'entries', component: ListEntriesComponent, canActivate: [AuthGuard], children: [
+        { path: ':id', component: OldEntryComponent, canActivate: [AuthGuard] },
+      ] },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-      { path: 'new-entry/new', component: NewEntryComponent, canActivate: [AuthGuard] },
-      { path: 'question', component: QuestionComponent, canActivate: [AuthGuard] },
+      // { path: 'question', component: QuestionComponent, canActivate: [AuthGuard] },
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   }

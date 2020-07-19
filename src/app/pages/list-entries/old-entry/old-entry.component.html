@@ -1,1 +1,19 @@
 <p>old-entry works!</p>
+
+<button class=""
+  mat-raised-button color="secondary"
+  (click)="onBack()">
+  back
+</button>
+
+<div *ngIf="isReady">
+  <p>date {{ oldEntry.date | date }}</p>
+  <p>title {{ oldEntry.title }}</p>
+  <p>description {{ oldEntry.description }}</p>
+
+  <button class=""
+    mat-raised-button color="secondary"
+    (click)="onDelete()">
+    delete
+</button>
+</div>

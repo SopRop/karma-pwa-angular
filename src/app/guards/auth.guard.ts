@@ -26,8 +26,8 @@ export class AuthGuard implements CanActivate {
 
       const pagesAllowed = ['sign-up', 'sign-in', 'forgot-password'];
 
-      console.log('route', this.routeURL);
-      console.log('array', pagesAllowed);
+      // console.log('route', this.routeURL);
+      // console.log('array', pagesAllowed);
 
       this.authService.isLoggedIn().subscribe((user) => {
         // console.log('user', user);
