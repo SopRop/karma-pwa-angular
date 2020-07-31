@@ -17,7 +17,7 @@ import { map } from 'rxjs/operators';
 })
 export class ListEntriesComponent implements OnInit {
 
-  entries: Observable<Entry[]>;
+  entries: Entry[] = [];
   isClicked = false;
   clickedEntry: any;
 
@@ -36,14 +36,12 @@ export class ListEntriesComponent implements OnInit {
   }
 
   getEntries() {
-    // get all entries
-    this.entries = this.entryService.getEntries()
-      .pipe(map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Entry;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    );
+    this.entryService.getEntries()
+      .subscribe((question: Entry[]) => {
+        this.entries = question;
+        console.log(this.entries);
+        }
+      );
   }
 
   onSelectEntry(data) {

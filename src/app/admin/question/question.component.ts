@@ -1,10 +1,7 @@
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 
 import { QuestionService } from './../../services/question/question.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Question } from 'src/app/services/question/question';
 
 
@@ -15,13 +12,17 @@ import { Question } from 'src/app/services/question/question';
 })
 export class QuestionComponent implements OnInit {
 
-  questions: Observable<Question[]>;
+  questions: Question[] = [];
+
   questionForm: FormGroup;
   errorMsg: string;
 
+  // Mandatory directive to reset all the form (even validators)
+  @ViewChild('formDirective', {static: false}) private formDirective: NgForm;
+
   constructor(private questionService: QuestionService,
               private question: Question,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.buildQuestionForm();
@@ -29,39 +30,33 @@ export class QuestionComponent implements OnInit {
   }
 
   getQuestions() {
-    this.questions = this.questionService.getQuestions()
-      .pipe(map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Question;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    );
+    this.questionService.getQuestions()
+      .subscribe((question: Question[]) => {
+        this.questions = question;
+        console.log(this.questions);
+        }
+      );
   }
 
   buildQuestionForm() {
     this.questionForm = this.formBuilder.group({
       title: ['', Validators.required],
-      yesPoints: ['', [Validators.required, Validators.pattern('(?:\\b|-)([1-9]{1,2}[0]?|100)\\b')]],
-      noPoints: ['', [Validators.required, Validators.pattern('(?:\\b|-)([1-9]{1,2}[0]?|100)\\b')]]
+      yesPoints: ['', [Validators.required, Validators.pattern('^([0-9]|[1-9][0-9]|100)$')]],
+      noPoints: ['', [Validators.required, Validators.pattern('^([0-9]|[1-9][0-9]|100)$')]],
+      yesSign: ['', Validators.required],
+      noSign: ['', Validators.required]
     });
 
 
   }
 
   onAddQuestion() {
-
-    // const title = this.questionForm.value.title;
-    // const yesPoints = this.questionForm.value.yesPoints;
-    // const noPoints = this.questionForm.value.noPoints;
-
     this.question = this.questionForm.value;
 
     this.questionService.addQuestion(this.question);
 
-    // this.questionForm.reset();
-    location.reload();
-    // console.log(title, yesPoints, noPoints);
-
+    // Mandatory directive to reset all the form (even validators)
+    this.formDirective.resetForm();
   }
 
 }

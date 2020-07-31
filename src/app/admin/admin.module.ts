@@ -7,7 +7,8 @@ import { MatInputModule,
   MatDatepickerModule,
   MatNativeDateModule,
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
+  MatButtonToggleModule
 } from '@angular/material';
 
 import { FormBuilder,
@@ -28,7 +29,8 @@ import { FormBuilder,
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatButtonToggleModule
   ]
 })
 export class AdminModule { }

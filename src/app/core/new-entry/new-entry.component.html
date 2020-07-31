@@ -32,4 +32,10 @@
     </div>
   </div>
 
+  <div class="container text-center" *ngFor="let question of entryQuestions, index as i" formArrayName="answers">
+    <p>{{ question.title }}</p>
+    <mat-slide-toggle [formControlName]="[i]">Slide</mat-slide-toggle>
+    <p>----</p>
+  </div>
 </form>
+

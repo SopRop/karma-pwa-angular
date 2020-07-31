@@ -4,4 +4,6 @@ export class Question {
   title: string;
   yesPoints: number;
   noPoints: number;
+  yesSign: string;
+  noSign: string;
 }

@@ -3,12 +3,13 @@
 <ng-container *ngIf="!isClicked">
   <button type="button" class="btn btn-primary" routerLink="/new-entry">Add</button>
 
-  <div *ngFor="let entry of entries | async">
+  <div *ngFor="let entry of entries">
     <div (click)="onSelectEntry(entry)">
       <p>-----debut-----</p>
       <p>{{ entry.title }}</p>
       <p>{{ entry.description }}</p>
       <p>{{ entry.date | date: 'dd/MM/yyyy'}}</p>
+      <p>{{ entry.points }}</p>
 
 
       <p>-----fin-----</p>
@@ -27,4 +28,3 @@
   <app-old-entry *ngIf="isClicked">
   </app-old-entry>
 </ng-container>
-

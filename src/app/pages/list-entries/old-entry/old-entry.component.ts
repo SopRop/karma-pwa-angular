@@ -50,8 +50,6 @@ export class OldEntryComponent implements OnInit {
   }
 
   onDelete() {
-    console.log('pouah');
-    // console.log('data', this.oldEntry.id);
     this.entryService.deleteEntry(this.oldEntry.id);
     this.onBack();
   }

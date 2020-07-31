@@ -8,7 +8,8 @@ import { MatInputModule,
           MatDatepickerModule,
           MatNativeDateModule,
           MatIconModule,
-          MatButtonModule
+          MatButtonModule,
+          MatSlideToggleModule
         } from '@angular/material';
 
 import { NewEntryComponent } from './new-entry.component';
@@ -25,7 +26,8 @@ import { NewEntryComponent } from './new-entry.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSlideToggleModule
   ]
 })
 export class NewEntryModule { }
