@@ -41,8 +41,6 @@ export class EntryService {
   }
 
   addEntry(entry: Entry) {
-    // Pour avoir un custom ID
-    // this.firestore.collection('entry').doc('ID_CHOUETTE').set(Object.assign({}, entry));
     entry.userid = this.user.uid;
     this.entryCollection.add({...entry});
   }

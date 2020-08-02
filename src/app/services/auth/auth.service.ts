@@ -52,11 +52,20 @@ export class AuthService {
     });
   }
 
-  // Returns true when user is looged in and email is verified
+  // Returns true when user is logged in and email is verified
   get isLoggedInAfter(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log('user', user);
     return (user !== null) ? true : false;
+  }
+
+  getUserInfo(id: string) {
+    return this.firestore.collection('user')
+      .doc(id)
+      .ref
+      .get()
+      .then( doc => {
+        return doc.data();
+      });
   }
 
   // getUsersList() {
@@ -85,6 +94,7 @@ export class AuthService {
           this.router.navigate(['/']);
         });
         this.setUserData(result.user);
+        localStorage.setItem('user', JSON.stringify(this.userData));
         this.karmaService.addNewUserKarma(result.user);
       });
       // .catch((error) => {
@@ -149,25 +159,4 @@ export class AuthService {
     });
   }
 
-  getUser(id: string) {
-    return this.firestore.collection('user')
-      .doc(id)
-      .ref
-      .get()
-      .then( doc => {
-        return doc.data();
-      });
-  }
-
-  getUserInfo(user: any) {
-    return this.firestore.collection('user', ref => ref.where('uid', '==', user.uid))
-      .snapshotChanges()
-      .pipe(map(changes => {
-        return changes.map(a => {
-          const data = a.payload.doc.data() as User;
-          data.uid = a.payload.doc.id;
-          return data;
-        });
-      }));
-  }
 }

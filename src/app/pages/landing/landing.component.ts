@@ -13,35 +13,33 @@ import { Karma } from '../../services/karma/karma';
 })
 export class LandingComponent implements OnInit {
 
-  user: User;
-  karma: Karma;
-  userStorage: any;
+  user: any;
+  karma: any;
+  userStorage = JSON.parse(localStorage.getItem('user'));
 
   constructor(private authService: AuthService,
               private karmaService: KarmaService) { }
 
   ngOnInit() {
-    this.userStorage = JSON.parse(localStorage.getItem('user'));
     this.getUserInfo();
+    this.getUserKarma();
+    // this.karmaService.updateKarmaPoints(this.userStorage.uid, 1000);
   }
 
   getUserInfo() {
-    this.authService.getUserInfo(this.userStorage)
-      .subscribe((user) => {
-        this.user = user[0];
-        console.log('this', this.user);
-        this.getUserKarma();
-        return this.user;
-      });
+    this.authService.getUserInfo(this.userStorage.uid)
+    .then(data => {
+      Object.assign(data);
+      this.user = data;
+      return this.user;
+    });
   }
 
   getUserKarma() {
     this.karmaService.getKarma(this.userStorage.uid)
       .subscribe((karma) => {
         this.karma = karma[0];
-        console.log('ghisk', this.karma);
         return this.karma;
       });
   }
-
 }

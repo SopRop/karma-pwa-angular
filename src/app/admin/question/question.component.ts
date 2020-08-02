@@ -33,7 +33,6 @@ export class QuestionComponent implements OnInit {
     this.questionService.getQuestions()
       .subscribe((question: Question[]) => {
         this.questions = question;
-        console.log(this.questions);
         }
       );
   }

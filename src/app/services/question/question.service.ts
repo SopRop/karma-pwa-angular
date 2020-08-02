@@ -29,11 +29,7 @@ export class QuestionService {
   }
 
   addQuestion(question: Question) {
-    console.log('question :', question);
     // Using spread operator (shallow copy) instead of Object.assign({}, question)
     this.firestore.collection('question').add({...question});
-    // this.firestore.collection('question').doc('question_1').set({...question});
-    // this.firestore.collection('question').add({...question, test: 100});
-
   }
 }

@@ -4,11 +4,11 @@
 <!-- <button type="button" class="btn btn-primary" routerLink="/new-entry/new" (click)="addUser()">Add</button> -->
 <button type="button" class="btn btn-primary" routerLink="new-entry">Add</button>
 
-<div *ngIf="user && karma">
+<div *ngIf="user">
   <p>{{ user.uid }}</p>
   <p>{{ user.email }}</p>
-  <p>{{ karma.points }}</p>
 </div>
+<p *ngIf="karma">{{ karma.points }}</p>
 <!-- <p *ngFor="let user of users | async">{{ user.username }}</p> -->
 <!-- <pre>{{ (users | async) | json }}</pre> -->
 

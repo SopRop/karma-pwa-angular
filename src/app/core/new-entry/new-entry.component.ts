@@ -7,6 +7,8 @@ import { Question } from 'src/app/services/question/question';
 import { EntryService } from '../../services/entry/entry.service';
 import { Entry } from '../../services/entry/entry';
 
+import { KarmaService } from './../../services/karma/karma.service';
+
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 
 import * as moment from 'moment-timezone';
@@ -31,7 +33,8 @@ export class NewEntryComponent implements OnInit {
               private entryService: EntryService,
               private questionService: QuestionService,
               private entry: Entry,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private karmaService: KarmaService) { }
 
   ngOnInit() {
     this.buildEntryForm();
@@ -67,7 +70,7 @@ export class NewEntryComponent implements OnInit {
     // add questions to form values
     entry.questions = [...this.entryQuestions];
 
-    // associate boolean answer to specific question
+    // associate boolean user answer to specific question
     entry.questions.map((el, i) => {
       entry.answers[i] === null || false ? entry.answers[i] = false : entry.answers[i] = true;
       el.answer = entry.answers[i];
@@ -92,6 +95,11 @@ export class NewEntryComponent implements OnInit {
     entry.points = sum;
 
     this.entryService.addEntry(entry);
+
+    // Change value karma points
+    const user = JSON.parse(localStorage.getItem('user'));
+    this.karmaService.updateKarmaPoints(user.uid, entry.points);
+
     this.router.navigate(['/entries']);
   }
 }

@@ -39,7 +39,6 @@ export class ListEntriesComponent implements OnInit {
     this.entryService.getEntries()
       .subscribe((question: Entry[]) => {
         this.entries = question;
-        console.log(this.entries);
         }
       );
   }
@@ -61,7 +60,6 @@ export class ListEntriesComponent implements OnInit {
   }
 
   onDelete(id: string) {
-    console.log('data', id);
     this.entryService.deleteEntry(id);
   }
 
