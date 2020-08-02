@@ -15,25 +15,10 @@ export class SecureInnerPagesGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
-    return this.authService.isLoggedIn().pipe(map(v => {
-      if (v) {
-        console.log(v);
-        return true;
-      }
-    }));
-
-    // this.authService.isLoggedIn().pipe(map(v => {
-    //   if (v) {
-    //     this.router.navigate(['']);
-    //     console.log('signin')
-    //   }
-    // }));
-
-    // console.log('onnner', this.isLoggedIn)
-    // if (this.authService.isLoggedIn) {
-    //   // this.router.navigate(['']);
-    // }
+    if (this.authService.isLoggedInAfter) {
+      console.log('You are already signed in, access denied!');
+      this.router.navigate(['/entries']);
+    }
+    return true;
   }
-
 }

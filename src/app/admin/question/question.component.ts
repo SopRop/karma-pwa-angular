@@ -46,8 +46,6 @@ export class QuestionComponent implements OnInit {
       yesSign: ['', Validators.required],
       noSign: ['', Validators.required]
     });
-
-
   }
 
   onAddQuestion() {

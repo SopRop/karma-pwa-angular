@@ -28,30 +28,19 @@ const routes: Routes = [
     children: [
       { path: '', component: LandingComponent, pathMatch: 'full', canActivate: [AuthGuard] },
       // { path: '', component: LandingComponent },
-      // { path: 'sign-in', component: SignInComponent, canActivate: [AuthGuard] },
-      // { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard] },
-      // { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [AuthGuard] },
-      { path: 'sign-in', component: SignInComponent },
-      { path: 'sign-up', component: SignUpComponent },
-      { path: 'forgot-password', component: ForgotPasswordComponent},
+      { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard] },
+      { path: 'sign-up', component: SignUpComponent, canActivate: [SecureInnerPagesGuard] },
+      { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
       { path: 'questions', component: QuestionComponent, canActivate: [AuthGuard] },
       { path: 'new-entry', component: NewEntryComponent, canActivate: [AuthGuard] },
       { path: 'entries', component: ListEntriesComponent, canActivate: [AuthGuard], children: [
         { path: ':id', component: OldEntryComponent, canActivate: [AuthGuard] },
       ] },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-      // { path: 'question', component: QuestionComponent, canActivate: [AuthGuard] },
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   }
 ];
-
-// { path: '', redirectTo: '/sign-in', pathMatch: 'full'},
-// { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
-// { path: 'register-user', component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
-// { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-// { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
-// { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard] }
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

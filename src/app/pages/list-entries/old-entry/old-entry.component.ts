@@ -13,7 +13,6 @@ import { map } from 'rxjs/operators';
 })
 export class OldEntryComponent implements OnInit {
 
-  isReady = false;
   oldEntry: any;
 
   constructor(private route: ActivatedRoute,
@@ -21,16 +20,14 @@ export class OldEntryComponent implements OnInit {
               private entryService: EntryService) { }
 
   ngOnInit() {
-      this.isReady = false;
       this.getEntryId();
   }
 
   async getEntryId() {
-    await new Promise( resolve => {
+    await new Promise(resolve => {
       this.route.queryParams
       .pipe(map(data => data))
         .subscribe(result => {
-          console.log('result', result);
           resolve(result);
           this.getEntry(result);
       });
@@ -38,13 +35,10 @@ export class OldEntryComponent implements OnInit {
   }
 
   getEntry(params) {
-    console.log('test', params);
     this.entryService.getEntry(params.id)
     .then(data => {
-      console.log('data', data);
       Object.assign(data, params);
       this.oldEntry = data;
-      this.isReady = true;
       return this.oldEntry;
     });
   }

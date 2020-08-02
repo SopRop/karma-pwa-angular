@@ -3,11 +3,14 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+
+import { KarmaService } from './../karma/karma.service';
 
 import { User } from './user';
 import { auth } from 'firebase';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +22,7 @@ export class AuthService {
 
   constructor(public firestore: AngularFirestore,
               public authFire: AngularFireAuth,
+              private karmaService: KarmaService,
               public router: Router,
               public ngZone: NgZone) {
 
@@ -29,31 +33,34 @@ export class AuthService {
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user'));
       } else {
-        localStorage.removeItem('user');
+        localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
       }
     });
   }
 
-  isLoggedIn(): Observable<boolean> {
-    return this.authFire.authState.pipe(map((authUser) =>  {
-      // console.log('user', authUser);
-      if (authUser) {
-        // console.log('true');
+  // TODO: Find a way to have just one function to check login
+  // Problem: one or the other will check too early and will block navigation
+  // Either for secure inner guard of for auth guard
+  isLoggedIn() {
+    this.authFire.auth.onAuthStateChanged((user) => {
+      if (user) {
         return true;
       } else {
-        // console.log('false');
         return false;
       }
-    }));
+    });
+  }
+
+  // Returns true when user is looged in and email is verified
+  get isLoggedInAfter(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log('user', user);
+    return (user !== null) ? true : false;
   }
 
   // getUsersList() {
   //   return this.firestore.collection('user').snapshotChanges();
-  // }
-
-  // addUser(username: string) {
-  //   this.firestore.collection('user').add({ username });
   // }
 
   // sign in with email and pwd
@@ -71,13 +78,14 @@ export class AuthService {
   }
 
   // sign up with email and pwd
-  async signUp(email, password) {
+  async signUp(email: string, password: string) {
     return this.authFire.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
           this.router.navigate(['/']);
         });
         this.setUserData(result.user);
+        this.karmaService.addNewUserKarma(result.user);
       });
       // .catch((error) => {
       //   window.alert(error.message);
@@ -106,7 +114,7 @@ export class AuthService {
   }
 
   // auth logic to run auth providers
-  async authLogin(provider) {
+  authLogin(provider) {
     return this.authFire.auth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
@@ -128,7 +136,7 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       // photoUrl: user.photoUrl
-    }
+    };
     return userRef.set(userData, {
       merge: true
     });
@@ -139,5 +147,27 @@ export class AuthService {
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);
     });
+  }
+
+  getUser(id: string) {
+    return this.firestore.collection('user')
+      .doc(id)
+      .ref
+      .get()
+      .then( doc => {
+        return doc.data();
+      });
+  }
+
+  getUserInfo(user: any) {
+    return this.firestore.collection('user', ref => ref.where('uid', '==', user.uid))
+      .snapshotChanges()
+      .pipe(map(changes => {
+        return changes.map(a => {
+          const data = a.payload.doc.data() as User;
+          data.uid = a.payload.doc.id;
+          return data;
+        });
+      }));
   }
 }

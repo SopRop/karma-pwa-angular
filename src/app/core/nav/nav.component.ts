@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 export class NavComponent implements OnInit {
 
   isPortrait: boolean;
-  isLoggedIn: Observable<boolean>;
+  // isLoggedIn: Observable<boolean>;
 
   menus: Menu[] = [
     {
@@ -44,7 +44,8 @@ export class NavComponent implements OnInit {
               public authService: AuthService
               ) {
 
-    this.isLoggedIn = this.authService.isLoggedIn();
+    // TODO: display menu only if logged in
+    // this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   ngOnInit() {

@@ -1,4 +1,5 @@
-<div *ngIf="isLoggedIn | async" class=""
+<!-- <div *ngIf="isLoggedIn | async" class="" -->
+<div class=""
     [ngClass]="isPortrait ? 'fixed-bottom' : 'sticky-top'">
   <ng-container *ngFor="let menu of menus">
     <a class="navbar-brand" href="{{ menu.url }}">

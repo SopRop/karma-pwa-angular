@@ -3,7 +3,7 @@
 
   <form [formGroup]="signInForm" class="m-b-20" (ngSubmit)="onSignIn()">
 
-    <p class="" *ngIf="errorMsg">{{ errorMsg }}</p>
+    <p class="text-error" *ngIf="errorMsg">{{ errorMsg }}</p>
 
     <div class="">
       <div class="">

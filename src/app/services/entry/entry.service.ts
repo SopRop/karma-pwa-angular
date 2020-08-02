@@ -14,10 +14,12 @@ export class EntryService {
   entries: Observable<Entry[]>;
   entryCollection = this.firestore.collection('entry');
 
+  user = JSON.parse(localStorage.getItem('user'));
+
   constructor(private firestore: AngularFirestore) {}
 
   getEntries(): Observable<Entry[]> {
-    return this.firestore.collection('entry', ref => ref.orderBy('date', 'desc'))
+    return this.firestore.collection('entry', ref => ref.where('userid', '==', this.user.uid).orderBy('date', 'desc'))
       .snapshotChanges()
       .pipe(map(changes => {
         return changes.map(a => {
@@ -31,7 +33,8 @@ export class EntryService {
   getEntry(id: string) {
     return this.entryCollection
       .doc(id)
-      .ref.get()
+      .ref
+      .get()
       .then( doc => {
         return doc.data();
       });
@@ -40,7 +43,7 @@ export class EntryService {
   addEntry(entry: Entry) {
     // Pour avoir un custom ID
     // this.firestore.collection('entry').doc('ID_CHOUETTE').set(Object.assign({}, entry));
-    console.log('entry back', entry);
+    entry.userid = this.user.uid;
     this.entryCollection.add({...entry});
   }
 

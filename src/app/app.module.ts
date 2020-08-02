@@ -19,6 +19,9 @@ import { CoreModule } from './core/core.module';
 import { ScreenService } from './services/screen/screen.service';
 import { AuthService } from './services/auth/auth.service';
 
+import { AuthGuard } from './guards/auth.guard';
+import { SecureInnerPagesGuard } from './guards/secure-inner-pages.guard';
+
 import { Entry } from './services/entry/entry';
 import { Question } from './services/question/question';
 
@@ -42,6 +45,8 @@ import { Question } from './services/question/question';
   providers: [
     ScreenService,
     AuthService,
+    AuthGuard,
+    SecureInnerPagesGuard,
     Entry,
     Question
   ],
