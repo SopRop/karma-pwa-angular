@@ -7,9 +7,6 @@ import { Entry } from '../../services/entry/entry';
 // import * as moment from 'moment-timezone';
 // import 'moment-timezone';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 @Component({
   selector: 'app-list-entries',
   templateUrl: './list-entries.component.html',
@@ -44,7 +41,7 @@ export class ListEntriesComponent implements OnInit {
   }
 
   onSelectEntry(data) {
-    // show oldEntry component
+    // allow to show oldEntry component
     this.isClicked = true;
 
     // Navigate to single entry with id

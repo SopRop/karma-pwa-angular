@@ -25,6 +25,8 @@
 </ng-container>
 
 <ng-container>
-  <app-old-entry *ngIf="isClicked">
+  <app-old-entry
+    *ngIf="isClicked"
+    (deleteEntry)="onDelete($event)" >
   </app-old-entry>
 </ng-container>
