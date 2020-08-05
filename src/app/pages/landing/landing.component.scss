@@ -1,0 +1,54 @@
+$primary: black;
+
+body {
+  // background: #e9e9e9;
+  padding: 50px;
+}
+
+.wrapper {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  // margin: 10;
+
+  .circle {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background-color: $primary;
+    margin: auto;
+    transform: scale(1, 1);
+
+    &.pulse {
+      animation-timing-function: ease;
+      animation: pulse 5s infinite;
+      background-color: rgba($primary, .2);
+    }
+  }
+
+  .karma-points {
+    text-align: center;
+
+    line-height: 205px;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.1, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}

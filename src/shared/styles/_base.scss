@@ -4,9 +4,12 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  // background-color: $coconut;
-  // background-color: #dcd3de;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #7a1f1f;
+  background-image: url("https://www.transparenttextures.com/patterns/shattered.png");
+  // TODO: save img
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+  text-align: center;
 }
 
 h2 {

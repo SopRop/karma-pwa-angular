@@ -4,12 +4,17 @@
 <!-- <button type="button" class="btn btn-primary" routerLink="/new-entry/new" (click)="addUser()">Add</button> -->
 <button type="button" class="btn btn-primary" routerLink="new-entry">Add</button>
 
-<div *ngIf="user">
-  <p>{{ user.uid }}</p>
-  <p>{{ user.email }}</p>
-</div>
-<p *ngIf="karma">{{ karma.points }}</p>
-<!-- <p *ngFor="let user of users | async">{{ user.username }}</p> -->
-<!-- <pre>{{ (users | async) | json }}</pre> -->
+<ng-container *ngIf="user && karma">
+  <div>
+    <p>{{ user.uid }}</p>
+    <p>{{ user.email }}</p>
+  </div>
+
+
+  <div class="wrapper container justify-content-center">
+    <div class="circle pulse"></div>
+    <div class="circle"><h1 class="karma-points">{{ karma.points }}</h1></div>
+  </div>
+</ng-container>
 
 

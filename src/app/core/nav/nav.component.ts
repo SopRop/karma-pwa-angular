@@ -19,25 +19,29 @@ export class NavComponent implements OnInit {
 
   menus: Menu[] = [
     {
-      name: 'Home',
-      url: '/',
-      slug: 'home'
-    },
-    {
       name: 'Entries',
       url: '/entries',
-      slug: 'entries'
+      slug: 'entries',
+      icon: ''
+    },
+    {
+      name: 'Home',
+      url: '/',
+      slug: 'home',
+      icon: ''
     },
     {
       name: 'Profile',
       url: '/profile',
-      slug: 'profile'
-    },
-    {
-      name: 'Questions',
-      url: '/questions',
-      slug: 'questions'
+      slug: 'profile',
+      icon: ''
     }
+    // {
+    //   name: 'Questions',
+    //   url: '/questions',
+    //   slug: 'questions',
+    //   icon: ''
+    // }
   ];
 
   constructor(private screenService: ScreenService,

@@ -1,41 +1,37 @@
-<form class="container text-center" [formGroup]="entryForm" (ngSubmit)="onAddEntry()">
-
+<form class="container" [formGroup]="entryForm" (ngSubmit)="onAddEntry()">
   <div class="">
-
-    <div class="">
-      <mat-form-field class="col-md-3 col-6" appearance="legacy">
-        <mat-label>date</mat-label>
-        <input matInput [matDatepicker]="date_picker" [formControl]="entryForm.get('date')" required>
-        <mat-datepicker-toggle matSuffix [for]="date_picker"></mat-datepicker-toggle>
-        <mat-datepicker #date_picker touchUi></mat-datepicker>
-      </mat-form-field>
-    </div>
-
-    <div class="">
-      <mat-form-field class="col-md-3 col-10" appearance="legacy">
-        <mat-label>title</mat-label>
-        <input matInput #title maxlength="25" [formControl]="entryForm.get('title')" required>
-        <mat-hint align="end">{{title.value?.length || 0}}/25</mat-hint>
-      </mat-form-field>
-    </div>
-
-    <div class="">
-      <mat-form-field class="col-md-6 col-10" appearance="legacy">
-        <mat-label>description</mat-label>
-        <input matInput #description maxlength="200" [formControl]="entryForm.get('description')" required>
-        <mat-hint align="end">{{description.value?.length || 0}}/200</mat-hint>
-      </mat-form-field>
-    </div>
-
-    <div class="mt-4">
-      <button class="col-auto" type="submit" [disabled]="!entryForm.valid" mat-raised-button color="primary">Add new entry</button>
-    </div>
+    <mat-form-field class="col-md-3 col-6" appearance="legacy">
+      <mat-label>date</mat-label>
+      <input matInput [matDatepicker]="date_picker" [formControl]="entryForm.get('date')" required>
+      <mat-datepicker-toggle matSuffix [for]="date_picker"></mat-datepicker-toggle>
+      <mat-datepicker #date_picker touchUi></mat-datepicker>
+    </mat-form-field>
   </div>
 
-  <div class="container text-center" *ngFor="let question of entryQuestions, index as i" formArrayName="answers">
+  <div class="">
+    <mat-form-field class="col-md-3 col-10" appearance="legacy">
+      <mat-label>title</mat-label>
+      <input matInput #title maxlength="25" [formControl]="entryForm.get('title')" required>
+      <mat-hint align="end">{{title.value?.length || 0}}/25</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div class="">
+    <mat-form-field class="col-md-6 col-10" appearance="legacy">
+      <mat-label>description</mat-label>
+      <input matInput #description maxlength="200" [formControl]="entryForm.get('description')" required>
+      <mat-hint align="end">{{description.value?.length || 0}}/200</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div class="container" *ngFor="let question of entryQuestions, index as i" formArrayName="answers">
     <p>{{ question.title }}</p>
     <mat-slide-toggle [formControlName]="[i]">Slide</mat-slide-toggle>
     <p>----</p>
+  </div>
+
+  <div class="mt-4">
+    <button class="col-auto" type="submit" [disabled]="!entryForm.valid" mat-raised-button color="primary">Add new entry</button>
   </div>
 </form>
 

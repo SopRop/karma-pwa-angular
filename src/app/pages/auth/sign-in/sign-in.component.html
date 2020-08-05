@@ -1,4 +1,4 @@
-<div class="container text-center">
+<div class="container">
   <h2 class="">sign in</h2>
 
   <form [formGroup]="signInForm" class="m-b-20" (ngSubmit)="onSignIn()">
@@ -7,7 +7,7 @@
 
     <div class="">
       <div class="">
-        <mat-form-field class="col-10 col-md-3 text-center">
+        <mat-form-field class="col-10 col-md-3">
           <input matInput #email placeholder="e-mail" formControlName="email" required>
         </mat-form-field>
       </div>
