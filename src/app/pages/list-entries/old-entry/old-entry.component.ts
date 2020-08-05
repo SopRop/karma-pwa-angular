@@ -1,8 +1,9 @@
-import { EntryService } from './../../../services/entry/entry.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { EntryService } from './../../../services/entry/entry.service';
+import { Entry } from './../../../services/entry/entry';
+
 import { map } from 'rxjs/operators';
 
 
@@ -46,8 +47,8 @@ export class OldEntryComponent implements OnInit {
   }
 
   // call onDelete in listEntries component
-  onDelete(): void {
-    this.deleteEntry.emit(this.oldEntry.id);
+  onDelete(entry: any): void {
+    this.deleteEntry.emit(entry);
     // go back to listEntries
     this.onBack();
   }

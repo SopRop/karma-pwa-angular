@@ -15,15 +15,15 @@ export class LandingComponent implements OnInit {
 
   user: any;
   karma: any;
-  userStorage = JSON.parse(localStorage.getItem('user'));
+  userStorage: any;
 
   constructor(private authService: AuthService,
               private karmaService: KarmaService) { }
 
   ngOnInit() {
+    this.userStorage = JSON.parse(localStorage.getItem('user'));
     this.getUserInfo();
     this.getUserKarma();
-    // this.karmaService.updateKarmaPoints(this.userStorage.uid, 1000);
   }
 
   getUserInfo() {

@@ -4,6 +4,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { EntryService } from '../../services/entry/entry.service';
 import { Entry } from '../../services/entry/entry';
 
+import { KarmaService } from './../../services/karma/karma.service';
+
 // import * as moment from 'moment-timezone';
 // import 'moment-timezone';
 
@@ -20,7 +22,8 @@ export class ListEntriesComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private entryService: EntryService) { }
+              private entryService: EntryService,
+              private karmaService: KarmaService) { }
 
   ngOnInit() {
     this.getEntries();
@@ -56,8 +59,9 @@ export class ListEntriesComponent implements OnInit {
     });
   }
 
-  onDelete(id: string) {
-    this.entryService.deleteEntry(id);
+  onDelete(entry: any) {
+    this.karmaService.updateKarmaPoints(entry.points, 'delete');
+    this.entryService.deleteEntry(entry.id);
   }
 
 }

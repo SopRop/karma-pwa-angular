@@ -46,9 +46,10 @@ export class NewEntryComponent implements OnInit {
   getEntryQuestions() {
     this.questionService.getQuestions()
     .subscribe((question: Question[]) => {
+      // TODO: Shuffle earlier (service)
       // shuffle all questions and retrieve x on random
       this.entryQuestions = question.sort(() => 0.5 - Math.random()).slice(0, 2);
-      // Add questions dynamically in form
+      // Add questions dynamically in array answers of entryForm
       this.entryQuestions.forEach(() => {
         (this.entryForm.controls.answers as FormArray).push(new FormControl());
       });
@@ -60,6 +61,7 @@ export class NewEntryComponent implements OnInit {
       date: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
+      // add answers / questions dynamically in getEntryQuestions function
       answers: this.formBuilder.array([])
     });
   }
@@ -78,7 +80,8 @@ export class NewEntryComponent implements OnInit {
 
     // delete array of answers (each answer previously saved in each question)
     delete entry.answers;
-    // initialize sum of points for questions
+
+    // initialize sum of points for questions' answers
     let sum = 0;
 
     // for each question : check answer (positive or negative)
@@ -88,7 +91,7 @@ export class NewEntryComponent implements OnInit {
       // check positive or negative answer, associate sign (+ || -) and make sum
       el.answer ? points = +(el.yesPoints) : points = +(el.noPoints);
       el.answer ? sign = el.yesSign : sign = el.noSign;
-      sign === '+' ? sum += points : sum -= points;
+      sign === '-' ? sum -= points : sum += points;
     });
 
     // add property 'points' to object
@@ -96,9 +99,8 @@ export class NewEntryComponent implements OnInit {
 
     this.entryService.addEntry(entry);
 
-    // Change value karma points
-    const user = JSON.parse(localStorage.getItem('user'));
-    this.karmaService.updateKarmaPoints(user.uid, entry.points);
+    // Change value total karma points
+    this.karmaService.updateKarmaPoints(entry.points, 'add');
 
     this.router.navigate(['/entries']);
   }

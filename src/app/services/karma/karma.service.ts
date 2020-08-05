@@ -22,9 +22,10 @@ export class KarmaService {
     this.firestore.collection('karma').add({...this.karma});
   }
 
-  // get karma points of user based on its uid
-  getKarma(userId: string) {
-    return this.firestore.collection('karma', ref => ref.where('userid', '==', userId))
+  // get total karma points of user based on its uid
+  getKarma(userUid: string) {
+    console.log('user get', userUid);
+    return this.firestore.collection('karma', ref => ref.where('userid', '==', userUid))
       .snapshotChanges()
       .pipe(map(changes => {
         return changes.map(a => {
@@ -36,23 +37,29 @@ export class KarmaService {
       }));
   }
 
-  updateKarmaPoints(userId: string, entryPoints: number) {
-    console.log('entryPoints', entryPoints);
-    console.log('userid', userId);
+  updateKarmaPoints(entryPoints: number, action: string) {
+    const user = JSON.parse(localStorage.getItem('user'));
 
-    // get info about previous karma
-    const subscription = this.getKarma(userId)
-      .subscribe((karma) => {
+    //  get info about previous karma
+    const subscription = this.getKarma(user.uid)
+    .subscribe((karma) => {
         this.karma = {...karma[0]};
 
-        console.log('this.karma', this.karma);
-
-        // If the new entry points are negative, substract to previous karma, else we add
-        (entryPoints.toString()).charAt(0) === '-' ?
+        // 1. Check if we add or delete an entry
+        // 2. Check if the entry is / was negative
+        // 3. Do the corresponding operation
+        if (action === 'delete') {
+          // delete an entry, we reverse the points
+          // if negative entry : we add the points back (and vice versa)
+          (entryPoints.toString()).charAt(0) === '-' ?
+          this.karma.points += Number((entryPoints.toString()).substr(1))
+          : this.karma.points -= entryPoints;
+        } else {
+          // add an entry (positive = add and negative = substract)
+          (entryPoints.toString()).charAt(0) === '-' ?
           this.karma.points -= Number((entryPoints.toString()).substr(1))
-            : this.karma.points += entryPoints;
-
-        console.log('this.karma.points', this.karma.points);
+          : this.karma.points += entryPoints;
+        }
 
         // update collection
         this.firestore.collection('karma')
