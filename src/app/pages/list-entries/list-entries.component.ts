@@ -43,7 +43,11 @@ export class ListEntriesComponent implements OnInit {
       );
   }
 
-  onSelectEntry(data) {
+  trackByFn(index, entry: Entry) {
+    return entry.id; // unique id corresponding to the item
+  }
+
+  onSelectEntry(entry: Entry) {
     // allow to show oldEntry component
     this.isClicked = true;
 
@@ -52,7 +56,7 @@ export class ListEntriesComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
-        id: data.id
+        id: entry.id
       },
       queryParamsHandling: 'merge',
       skipLocationChange: false

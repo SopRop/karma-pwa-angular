@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { QuestionService } from './../../services/question/question.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Question } from 'src/app/services/question/question';
+import { strictEqual } from 'assert';
 
 
 @Component({
@@ -35,6 +36,10 @@ export class QuestionComponent implements OnInit {
         this.questions = question;
         }
       );
+  }
+
+  trackByFn(index, question: Question) {
+    return question.id; // unique id corresponding to the item
   }
 
   buildQuestionForm() {

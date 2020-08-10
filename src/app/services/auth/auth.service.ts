@@ -10,7 +10,6 @@ import { User } from './user';
 import { auth } from 'firebase';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,7 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
   // Save logged-in data user
-  userData: any;
+  userData: User;
 
   constructor(public firestore: AngularFirestore,
               public authFire: AngularFireAuth,
@@ -39,28 +38,16 @@ export class AuthService {
     });
   }
 
-  // TODO: Find a way to have just one function to check login
-  // Problem: one or the other will check too early and will block navigation
-  // Either for secure inner guard of for auth guard
-  isLoggedIn() {
-    this.authFire.auth.onAuthStateChanged((user) => {
-      if (user) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  }
-
   // Returns true when user is logged in and email is verified
-  get isLoggedInAfter(): boolean {
+  get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null) ? true : false;
   }
 
-  getUserInfo(id: string) {
+  getUserInfo() {
+    const user = JSON.parse(localStorage.getItem('user'));
     return this.firestore.collection('user')
-      .doc(id)
+      .doc(user.uid)
       .ref
       .get()
       .then( doc => {
@@ -73,13 +60,15 @@ export class AuthService {
   // }
 
   // sign in with email and pwd
-  async signIn(email, password) {
-    return this.authFire.auth.signInWithEmailAndPassword(email, password)
+  async signIn(email: string, password: string) {
+    return await this.authFire.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
           this.router.navigate(['/']);
         });
         this.setUserData(result.user);
+        this.userData = result.user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
       });
       // .catch((error) => {
       //   window.alert(error.message);
@@ -88,12 +77,13 @@ export class AuthService {
 
   // sign up with email and pwd
   async signUp(email: string, password: string) {
-    return this.authFire.auth.createUserWithEmailAndPassword(email, password)
+    return await this.authFire.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
           this.router.navigate(['/']);
         });
         this.setUserData(result.user);
+        this.userData = result.user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         this.karmaService.addNewUserKarma(result.user);
       });
@@ -124,13 +114,15 @@ export class AuthService {
   }
 
   // auth logic to run auth providers
-  authLogin(provider) {
-    return this.authFire.auth.signInWithPopup(provider)
+  async authLogin(provider: any) {
+    return await this.authFire.auth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
           this.router.navigate(['/']);
         });
         this.setUserData(result.user);
+        this.userData = result.user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
       }).catch((error) => {
         window.alert(error);
       });
@@ -139,7 +131,7 @@ export class AuthService {
   /* Setting up user data when sign in with username/password,
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  setUserData(user) {
+  setUserData(user: User) {
     const userRef: AngularFirestoreDocument<any> = this.firestore.doc(`user/${user.uid}`);
     const userData: User = {
       uid: user.uid,
@@ -155,7 +147,6 @@ export class AuthService {
   async signOut() {
     return this.authFire.auth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
     });
   }
 

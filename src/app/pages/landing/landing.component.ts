@@ -27,7 +27,7 @@ export class LandingComponent implements OnInit {
   }
 
   getUserInfo() {
-    this.authService.getUserInfo(this.userStorage.uid)
+    this.authService.getUserInfo()
     .then(data => {
       Object.assign(data);
       this.user = data;

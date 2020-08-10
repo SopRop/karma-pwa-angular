@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Injectable({
@@ -15,9 +14,9 @@ export class SecureInnerPagesGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isLoggedInAfter) {
-      console.log('You are already signed in, access denied!');
-      this.router.navigate(['/entries']);
+    if (this.authService.isLoggedIn) {
+      console.log('you are already signed in');
+      this.router.navigate(['/']);
     }
     return true;
   }

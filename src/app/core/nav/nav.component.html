@@ -7,23 +7,26 @@
     </a>
   </ng-container>
 </div> -->
-<button class="" (click)="authService.signOut()" routerLink="/sign-in">
+<!-- <button class="" (click)="authService.signOut()" routerLink="/sign-in">
   logout
-</button>
+</button> -->
 
 <nav class="navbar navbar-expand-sm navbar-light" data-toggle="affix">
   <div class="mx-auto d-sm-flex d-block flex-sm-nowrap">
-      <div class="collapse navbar-collapse" id="navbarsExample11">
+      <div class="collapse navbar-collapse" id="">
           <ul class="navbar-nav">
               <li class="nav-item active">
-                  <a class="nav-link" href="/entries">Entries</a>
+                  <a class="nav-link" href="/entries">entries</a>
               </li>
               <li class="nav-item active mx-4">
-                  <a class="nav-link" href="/">Home</a>
+                  <a class="nav-link" href="/">home</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/profile">Profile</a>
+                  <a class="nav-link" href="/profile">profile</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="authService.signOut()" href="/sign-in">log out</a>
+            </li>
           </ul>
       </div>
   </div>

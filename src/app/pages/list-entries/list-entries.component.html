@@ -3,7 +3,7 @@
 <ng-container *ngIf="!isClicked">
   <button type="button" class="btn btn-primary" routerLink="/new-entry">Add</button>
 
-  <div *ngFor="let entry of entries">
+  <div *ngFor="let entry of entries; trackBy: trackByFn">
     <div (click)="onSelectEntry(entry)">
       <p>-----debut-----</p>
       <p>{{ entry.title }}</p>

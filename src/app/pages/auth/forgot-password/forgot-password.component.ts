@@ -29,7 +29,6 @@ export class ForgotPasswordComponent implements OnInit {
 
     this.errorMsg = '';
 
-    console.log('email', email);
     this.authService.forgotPassword(email)
       .catch((error) => {
         switch (error.code) {

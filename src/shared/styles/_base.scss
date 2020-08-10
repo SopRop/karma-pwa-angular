@@ -1,12 +1,13 @@
 @import './_colors';
 
 body {
+  color: white;
   height: 100%;
   margin: 0;
   padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #7a1f1f;
-  background-image: url("https://www.transparenttextures.com/patterns/shattered.png");
+  background-color: #03000a;
+  background-image: url("https://www.transparenttextures.com/patterns/shattered-dark.png");
   // TODO: save img
   /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
   text-align: center;
